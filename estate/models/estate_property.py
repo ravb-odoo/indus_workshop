@@ -87,3 +87,15 @@ class EstateProperty(models.Model):
         if self.state == 'sold':
             raise UserError(self.env._('A sold property cannot be cancelled.'))
         self.state = 'cancelled'
+
+    def action_make_offer(self):
+        return {
+            'name': self.env._('Make Offer'),
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'view_mode': 'form',
+            'res_model': 'estate.property.make.offer',
+            'context': {
+                'default_property_ids': self.ids
+            }
+        }
